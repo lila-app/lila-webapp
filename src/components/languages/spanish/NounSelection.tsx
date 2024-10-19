@@ -4,7 +4,7 @@ import NumberOfRoundsSelection from "../../NumberOfRoundsSelection";
 import StartGameButton from "../../StartGameButton";
 
 type grammarType = "nouns";
-type NumberOfGameRounds = 5 | 10;
+type NumberOfGameRounds = 5 | 10 | 15;
 
 interface NounSelectionProps {
   grammarType: grammarType;

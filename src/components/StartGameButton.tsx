@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 interface StartGameButtonProps {
-  numberOfGameRounds: 5 | 10;
+  numberOfGameRounds: 5 | 10 | 15;
   targetLanguage: string;
   sourceLanguage: string;
   grammarType: string;
