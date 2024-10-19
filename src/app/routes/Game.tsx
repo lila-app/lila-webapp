@@ -4,6 +4,7 @@ import { supabase } from "../../supabaseClient";
 
 import TopBar from "../../components/TopBar";
 import MenuBackground from "../../components/MenuBackground";
+import MenuLink from "../../components/MenuLink";
 
 interface GameState {
   numberOfGameRounds: 5 | 10;
@@ -24,12 +25,8 @@ interface Word {
 
 const Game = () => {
   const location = useLocation();
-  const {
-    numberOfGameRounds,
-    targetLanguage,
-    sourceLanguage,
-    grammarType,
-  } = location.state as GameState;
+  const { numberOfGameRounds, targetLanguage, sourceLanguage, grammarType } =
+    location.state as GameState;
 
   const [words, setWords] = useState<Word[]>([]);
   const [wordsToPractice, setWordsToPractice] = useState<Word[]>([]);
@@ -78,7 +75,7 @@ const Game = () => {
     }
     moveToNextWord();
   };
-  
+
   const handleLaClick = () => {
     if (currentWord?.grammatical_gender === "feminine") {
       if (currentWord) {
@@ -142,6 +139,7 @@ const Game = () => {
                   ))}
                 </ul>
               </div>
+              <MenuLink route="/singleplayer/spanish" title="go back" />
             </div>
           ) : (
             <>
