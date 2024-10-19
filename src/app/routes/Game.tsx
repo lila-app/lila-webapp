@@ -36,6 +36,9 @@ const Game = () => {
   const [notSolvedWords, setNotSolvedWords] = useState<Word[]>([]);
   const [gameOver, setGameOver] = useState(false);
 
+  // todo: delete this, only here for hosting purposes vercel complains a lot
+  console.log(sourceLanguage);
+
   useEffect(() => {
     getWords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
