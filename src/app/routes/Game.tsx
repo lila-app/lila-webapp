@@ -57,6 +57,7 @@ const Game = () => {
     const { data } = await supabase.from(tableName).select();
     console.log("data: ", data);
     setWords(data ?? []);
+    console.log(wordDifficulty, sourceLanguage)
   }
 
   const setupGame = () => {
@@ -70,22 +71,30 @@ const Game = () => {
 
   const handleElClick = () => {
     if (currentWord?.grammatical_gender === "masculine") {
-      // Move currentWord to solvedWords
-      setSolvedWords((prev) => [...prev, currentWord]);
+      // Only add currentWord if it's defined
+      if (currentWord) {
+        setSolvedWords((prev) => [...prev, currentWord]);
+      }
     } else {
-      // Move currentWord to notSolvedWords
-      setNotSolvedWords((prev) => [...prev, currentWord]);
+      // Only add currentWord if it's defined
+      if (currentWord) {
+        setNotSolvedWords((prev) => [...prev, currentWord]);
+      }
     }
     moveToNextWord();
   };
-
+  
   const handleLaClick = () => {
     if (currentWord?.grammatical_gender === "feminine") {
-      // Move currentWord to solvedWords
-      setSolvedWords((prev) => [...prev, currentWord]);
+      // Only add currentWord if it's defined
+      if (currentWord) {
+        setSolvedWords((prev) => [...prev, currentWord]);
+      }
     } else {
-      // Move currentWord to notSolvedWords
-      setNotSolvedWords((prev) => [...prev, currentWord]);
+      // Only add currentWord if it's defined
+      if (currentWord) {
+        setNotSolvedWords((prev) => [...prev, currentWord]);
+      }
     }
     moveToNextWord();
   };
