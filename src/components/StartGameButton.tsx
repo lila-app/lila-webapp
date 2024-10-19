@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 interface StartGameButtonProps {
-  wordDifficulty: "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
   numberOfGameRounds: 5 | 10;
   targetLanguage: string;
   sourceLanguage: string;
@@ -9,7 +8,6 @@ interface StartGameButtonProps {
 }
 
 const StartGameButton: React.FC<StartGameButtonProps> = ({
-  wordDifficulty,
   numberOfGameRounds,
   targetLanguage,
   sourceLanguage,
@@ -19,7 +17,6 @@ const StartGameButton: React.FC<StartGameButtonProps> = ({
     <Link
       to="/game"
       state={{
-        wordDifficulty,
         numberOfGameRounds,
         targetLanguage,
         sourceLanguage,

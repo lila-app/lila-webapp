@@ -6,7 +6,6 @@ import TopBar from "../../components/TopBar";
 import MenuBackground from "../../components/MenuBackground";
 
 interface GameState {
-  wordDifficulty: "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
   numberOfGameRounds: 5 | 10;
   targetLanguage: string;
   sourceLanguage: string;
@@ -26,7 +25,6 @@ interface Word {
 const Game = () => {
   const location = useLocation();
   const {
-    wordDifficulty,
     numberOfGameRounds,
     targetLanguage,
     sourceLanguage,
@@ -57,7 +55,6 @@ const Game = () => {
     const { data } = await supabase.from(tableName).select();
     console.log("data: ", data);
     setWords(data ?? []);
-    console.log(wordDifficulty, sourceLanguage)
   }
 
   const setupGame = () => {
@@ -71,12 +68,10 @@ const Game = () => {
 
   const handleElClick = () => {
     if (currentWord?.grammatical_gender === "masculine") {
-      // Only add currentWord if it's defined
       if (currentWord) {
         setSolvedWords((prev) => [...prev, currentWord]);
       }
     } else {
-      // Only add currentWord if it's defined
       if (currentWord) {
         setNotSolvedWords((prev) => [...prev, currentWord]);
       }
@@ -86,12 +81,10 @@ const Game = () => {
   
   const handleLaClick = () => {
     if (currentWord?.grammatical_gender === "feminine") {
-      // Only add currentWord if it's defined
       if (currentWord) {
         setSolvedWords((prev) => [...prev, currentWord]);
       }
     } else {
-      // Only add currentWord if it's defined
       if (currentWord) {
         setNotSolvedWords((prev) => [...prev, currentWord]);
       }
@@ -135,7 +128,6 @@ const Game = () => {
               >
                 Restart Game
               </button>
-              {/* Optionally, you could display the lists of words */}
               <div className="mt-4">
                 <h3 className="text-lg">Solved Words:</h3>
                 <ul>
