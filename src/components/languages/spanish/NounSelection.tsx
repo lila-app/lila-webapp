@@ -15,7 +15,7 @@ const NounSelection: React.FC<NounSelectionProps> = ({ grammarType }) => {
     useState<NumberOfGameRounds>(5);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-6">
       <NumberOfRoundsSelection
         numberOfGameRounds={numberOfGameRounds}
         setNumberOfGameRounds={setNumberOfGameRounds}
