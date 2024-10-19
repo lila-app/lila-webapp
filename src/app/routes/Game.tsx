@@ -17,9 +17,10 @@ interface Word {
   id: string;
   created_at: string;
   word: string;
-  ipa: string;
-  difficulty: string;
+  ipa?: string;
+  difficulty?: string;
   english_translations?: string | string[];
+  grammatical_gender?: "masculine" | "feminine";
 }
 
 const Game = () => {
@@ -33,11 +34,23 @@ const Game = () => {
   } = location.state as GameState;
 
   const [words, setWords] = useState<Word[]>([]);
+  const [wordsToPractice, setWordsToPractice] = useState<Word[]>([]);
+  const [currentWord, setCurrentWord] = useState<Word>();
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [solvedWords, setSolvedWords] = useState<Word[]>([]);
+  const [notSolvedWords, setNotSolvedWords] = useState<Word[]>([]);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     getWords();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (words.length > 0) {
+      setupGame();
+    }
+  }, [words]);
 
   async function getWords() {
     const tableName = `${targetLanguage}_${grammarType}`;
@@ -46,37 +59,111 @@ const Game = () => {
     setWords(data ?? []);
   }
 
+  const setupGame = () => {
+    const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+    const selectedWords = shuffledWords.slice(0, numberOfGameRounds);
+    console.log("words to practice: ", selectedWords);
+    console.log("current word: ", selectedWords[0].word);
+    setWordsToPractice(selectedWords);
+    setCurrentWord(selectedWords[0]);
+  };
+
+  const handleElClick = () => {
+    if (currentWord?.grammatical_gender === "masculine") {
+      // Move currentWord to solvedWords
+      setSolvedWords((prev) => [...prev, currentWord]);
+    } else {
+      // Move currentWord to notSolvedWords
+      setNotSolvedWords((prev) => [...prev, currentWord]);
+    }
+    moveToNextWord();
+  };
+
+  const handleLaClick = () => {
+    if (currentWord?.grammatical_gender === "feminine") {
+      // Move currentWord to solvedWords
+      setSolvedWords((prev) => [...prev, currentWord]);
+    } else {
+      // Move currentWord to notSolvedWords
+      setNotSolvedWords((prev) => [...prev, currentWord]);
+    }
+    moveToNextWord();
+  };
+
+  const moveToNextWord = () => {
+    const nextIndex = currentWordIndex + 1;
+    if (nextIndex < wordsToPractice.length) {
+      setCurrentWord(wordsToPractice[nextIndex]);
+      setCurrentWordIndex(nextIndex);
+    } else {
+      setGameOver(true);
+    }
+  };
+
+  const restartGame = () => {
+    setSolvedWords([]);
+    setNotSolvedWords([]);
+    setCurrentWordIndex(0);
+    setGameOver(false);
+    setupGame();
+  };
+
   return (
     <div className="bg-purple-100 min-h-screen">
       <TopBar heading="lila" />
       <MenuBackground>
-        <div>
-          <h1>Game Page</h1>
-          <p>Word Difficulty: {wordDifficulty}</p>
-          <p>Number of Game Rounds: {numberOfGameRounds}</p>
-          <p>Target Language: {targetLanguage}</p>
-          <p>Source Language: {sourceLanguage}</p>
-          <p>Grammar Type: {grammarType}</p>
-        </div>
-        <div>
-          {words.length === 0 ? (
-            <p>No words available</p>
+        <div className="flex flex-col space-y-8">
+          {gameOver ? (
+            <div className="text-center">
+              <h2 className="text-2xl">Game Over!</h2>
+              <p className="text-lg">Solved words: {solvedWords.length}</p>
+              <p className="text-lg">
+                Not solved words: {notSolvedWords.length}
+              </p>
+              <button
+                onClick={restartGame}
+                className="mt-4 text-lg p-4 bg-purple-600 hover:bg-purple-700 text-white rounded"
+              >
+                Restart Game
+              </button>
+              {/* Optionally, you could display the lists of words */}
+              <div className="mt-4">
+                <h3 className="text-lg">Solved Words:</h3>
+                <ul>
+                  {solvedWords.map((word) => (
+                    <li key={word.id}>{word.word}</li>
+                  ))}
+                </ul>
+                <h3 className="text-lg">Not Solved Words:</h3>
+                <ul>
+                  {notSolvedWords.map((word) => (
+                    <li key={word.id}>{word.word}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ) : (
-            <ul>
-              {words.map((word, index) => (
-                <li key={index} className="bg-purple-200 mb-4">
-                  <p>{word.word}</p>
-                  <p>IPA: {word.ipa}</p>
-                  <p>Difficulty: {word.difficulty}</p>
-                  <p>
-                    English Translations:{" "}
-                    {Array.isArray(word.english_translations)
-                      ? word.english_translations.join(", ")
-                      : word.english_translations}
-                  </p>
-                </li>
-              ))}
-            </ul>
+            <>
+              {currentWord && (
+                <button className="block text-2xl w-64 p-6 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg transition duration-300 text-center mx-auto">
+                  {currentWord.word}
+                </button>
+              )}
+              <div className="flex space-x-8">
+                <button
+                  onClick={handleElClick}
+                  className="block text-2xl w-64 p-6 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg transition duration-300 text-center mx-auto"
+                >
+                  el
+                </button>
+                <button
+                  onClick={handleLaClick}
+                  className="block text-2xl w-64 p-6 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg transition duration-300 text-center mx-auto"
+                >
+                  la
+                </button>
+              </div>
+            </>
           )}
         </div>
       </MenuBackground>
@@ -85,14 +172,3 @@ const Game = () => {
 };
 
 export default Game;
-
-/*
-gamelogic:
-
-1. look for database table targetlanguage_grammarType eg spanish_nouns
-2. fetch their objectiIds into array
-3. put numberOfGameRounds of these ids into one array "wordsToPractice" (eg 5), the rest into another array "wrongSolutions"
-4. round 1: show the word (eg casa) and 4 buttons, 1 button is the solution with the db entry of the id of the word case and english_translations (eg id12.english_tranlsations)
-the other 3 buttons are english_translations of 3 objectIds of wrongSolutions
-5. the user clicks on the right translation
-*/

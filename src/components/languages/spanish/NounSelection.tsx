@@ -17,8 +17,6 @@ const NounSelection: React.FC<NounSelectionProps> = ({ grammarType }) => {
   const [numberOfGameRounds, setNumberOfGameRounds] =
     useState<NumberOfGameRounds>(5);
 
-  const targetLanguage = "spanish";
-
   return (
     <div className="flex flex-col">
       <DifficultySelection
@@ -32,7 +30,7 @@ const NounSelection: React.FC<NounSelectionProps> = ({ grammarType }) => {
       <StartGameButton
         wordDifficulty={wordDifficulty}
         numberOfGameRounds={numberOfGameRounds}
-        targetLanguage={targetLanguage}
+        targetLanguage="spanish"
         sourceLanguage="english"
         grammarType={grammarType}
       />
