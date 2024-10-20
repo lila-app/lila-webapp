@@ -4,7 +4,7 @@ import NumberOfRoundsSelection from "../../NumberOfRoundsSelection";
 import StartGameButton from "../../StartGameButton";
 
 type grammarType = "adjectives";
-type NumberOfGameRounds = 5 | 10;
+type NumberOfGameRounds = 5 | 10 | 15;
 
 interface AdjectivesSelectionProps {
   grammarType: grammarType;
