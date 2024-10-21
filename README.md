@@ -4,13 +4,27 @@
 
 ### spanish language data
 
-- [ ] write script to retrieve word data + translations of all nouns from wordlist and write it to csv
-- [ ] from this list, upload to database and md-files
-- [ ] do the same for every other word category
+- [ ] query through the word lists and transform them to a fitting format
+-- [ ] adjectives
+-- [ ] adverbs
+-- [ ] interrogatives
+-- [ ] numbers
+-- [ ] prepositions
+-- [ ] verbs
+- [ ] add missing word data from other sources
+-- [ ] adjectives
+-- [ ] adverbs
+-- [ ] interrogatives
+-- [ ] numbers
+-- [ ] prepositions
+-- [ ] verbs
+- [ ] upload the data to supabase
 
 ### spanish course
 
 - [ ] add difficultyselection to game menu
+- [ ] refactor menu and add missing menu elements (media)
+- [ ] add content for spanish course page
 
 ### landing page
 
