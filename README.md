@@ -4,21 +4,25 @@
 
 ### spanish language data
 
-- [ ] query through the word lists and transform them to a fitting format
--- [ ] adjectives
--- [ ] adverbs
--- [ ] interrogatives
--- [ ] numbers
--- [ ] prepositions
--- [ ] verbs
-- [ ] add missing word data from other sources
--- [ ] adjectives
--- [ ] adverbs
--- [ ] interrogatives
--- [ ] numbers
--- [ ] prepositions
--- [ ] verbs
-- [ ] upload the data to supabase
+query through the word lists and transform them to a fitting format:
+
+- [ ] adjectives
+- [ ] adverbs
+- [ ] interrogatives
+- [ ] numbers
+- [ ] prepositions
+- [ ] verbs
+
+add missing word data from other sources:
+
+- [ ] adjectives
+- [ ] adverbs
+- [ ] interrogatives
+- [ ] numbers
+- [ ] prepositions
+- [ ] verbs
+
+- [ ] upload the language data to supabase
 
 ### spanish course
 
