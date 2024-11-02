@@ -1,5 +1,6 @@
 export interface SpanishVerb {
   id: string;
+  created_at: Date;
   word: string;
   ipa: string;
   syllabification: string;
