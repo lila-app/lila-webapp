@@ -1,4 +1,4 @@
-export interface SpanishAdjectives {
+export interface SpanishAdjective {
   id: string;
   created_at: Date;
   adjective_singular_masculine: string;
