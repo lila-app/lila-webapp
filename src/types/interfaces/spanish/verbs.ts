@@ -6,6 +6,10 @@ export interface SpanishVerb {
   infinitive_ipa: string;
   infinitive_syllabification: string;
   infinitive_audio_links: string[];
+  infinitive_english_translations: string[];
+  infinitive_french_translations: string[];
+  infinitive_italian_translations: string[];
+  infinitive_german_translations: string[];
 
   gerund: string;
   gerund_ipa: string;
@@ -453,9 +457,4 @@ export interface SpanishVerb {
     usted_ipa: string;
     usted_audio_links: string[];
   };
-
-  english_translations: string[];
-  french_translations: string[];
-  italian_translations: string[];
-  german_translations: string[];
 }
